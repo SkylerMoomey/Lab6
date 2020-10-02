@@ -112,3 +112,60 @@ curve(dgamma(x, 3, 1), xlim=c(0, 10), add=TRUE)
 
 #Y∼Gamma(shape=5,scale=1)
 curve(dgamma(x, 5, 1),  xlim=c(0, 10), add=TRUE)
+
+#******* Gamma with Probabilities *******
+
+#Y~Gamma(shape=3,scale=2),P(2<Y<5)
+
+#shape * scale_squared = variance
+#let xlim = alpha + sqrt(3*variance)
+alpha=3; beta_sq=4; xupper=alpha + 3*sqrt(alpha*beta_sq)
+
+curve(dgamma(x, shape=3, rate=1/2), xlim=c(0, xupper))
+xvals = seq(2, 5, length = 1000)
+yvals = dgamma(xvals, 3, 1/2)
+polygon(c(2, xvals, 5), c(0, yvals, 0), col="pink")
+title(main = list("Y~Gamma(Shape=3, Scale=2), P(2 < Y < 5)", col="violetred3"))
+
+#probability
+prob0 = round(pgamma(5, 3, rate=1/2) - pgamma(2, 3, rate=1/2), 4)
+loc0 = locator(1)
+loc0
+text(loc0, paste("Area = ", prob0, sep= ""))
+
+
+#Y∼Gamma(shape=6,scale=3),P(1≤Y≤4)
+
+#shape * scale_squared = variance
+#let xlim = sqrt(3*sd)
+alpha=6; beta_sq=9; xupper=alpha + 3*sqrt(alpha*beta_sq)
+
+curve(dgamma(x, shape=6, rate=1/3), xlim=c(0, xupper))
+xvals = seq(1, 4, length = 1000)
+yvals = dgamma(xvals, 6, rate=1/3)
+polygon(c(1, xvals, 4), c(0, yvals, 0), col="palegreen1")
+title(main = list("Y~Gamma(Shape=6, Scale=3), P(1 < Y < 4)", col="palegreen4"))
+
+#probability
+prob1 = round(pgamma(4, 6, rate=1/3) - pgamma(1, 6, rate=1/3), 4)
+loc2 = locator(1)
+loc2
+text(loc2, paste("Area = ", prob1, sep= ""))
+
+#Y∼Gamma(shape=2,scale=4),P(3≤Y<6)
+
+#shape * scale_squared = variance
+#let xlim = sqrt(3*sd)
+alpha=2; beta_sq=16; xupper=alpha + 3*sqrt(alpha*beta_sq)
+
+curve(dgamma(x, shape=2, rate=1/4), xlim=c(0, xupper))
+xvals = seq(3, 6, length = 1000)
+yvals = dgamma(xvals, 2, rate=1/4)
+polygon(c(3, xvals, 6), c(0, yvals, 0), col="sienna1")
+title(main = list("Y~Gamma(Shape=2, Scale=4), P(3 < Y < 6)", col="sienna2"))
+
+#probability
+prob1 = round(pgamma(6, 2, rate=1/4) - pgamma(3, 2, rate=1/4), 4)
+loc3 = locator(1)
+loc3
+text(loc3, paste("Area = ", prob1, sep= ""))
