@@ -169,3 +169,107 @@ prob1 = round(pgamma(6, 2, rate=1/4) - pgamma(3, 2, rate=1/4), 4)
 loc3 = locator(1)
 loc3
 text(loc3, paste("Area = ", prob1, sep= ""))
+
+#****** Chi-Square ******
+
+layout(layout_mat)
+
+#Y∼chisq(df=1)
+#nu = 1, mu = 1, variance = 2mu
+nu = 1
+mu = nu
+var = 2*nu
+xupper = mu + 3*sqrt(var)
+curve(dchisq(x, df=nu), xlim=c(0, xupper))
+title(main=list("Y~Chisq(Degrees of Freedom = 1)", col = "red2"))
+
+
+#Y∼chisq(df=2)
+nu = 2
+mu = nu
+var = 2*nu
+xupper = mu + 3*sqrt(var)
+curve(dchisq(x, df=nu), xlim=c(0, xupper))
+title(main=list("Y~Chisq(Degrees of Freedom = 2)", col = "magenta3"))
+
+
+#Y∼chisq(df=4)
+nu = 4
+mu = nu
+var = 2*nu
+xupper = mu + 3*sqrt(var)
+curve(dchisq(x, df=nu), xlim=c(0, xupper))
+title(main=list("Y~Chisq(Degrees of Freedom = 4)", col = "indianred3"))
+
+
+#Y∼chisq(df=20)
+nu = 20
+mu = nu
+var = 2*nu
+xupper = mu + 3*sqrt(var)
+curve(dchisq(x, df=nu), xlim=c(0, xupper))
+title(main=list("Y~Chisq(Degrees of Freedom = 20)", col = "olivedrab3"))
+
+#Y∼chisq(df=2),P(2≤Y≤4)
+nu = 2
+mu = nu
+var = 2*nu
+xupper=mu + 3*sqrt(var)
+
+x1=2; x2=4
+
+curve(dchisq(x, nu), xlim=c(0, xupper))
+xvals = seq(x1, x2, length = 1000)
+yvals = dchisq(xvals, nu)
+polygon(c(x1, xvals, x2), c(0, yvals, 0), col="sienna1")
+title(main = list("Y~Chisq(DoF = 2), P(2 < Y < 4)", col="sienna2"))
+
+#probability
+prob1 = round(pchisq(x2, nu) - pchisq(x1, nu), 4)
+loc = locator(1)
+loc
+text(loc, paste("Area = ", prob1, sep= ""))
+
+
+
+#Y∼chisq(df=3),P(3≤Y≤5)
+nu = 3
+mu = nu
+var = 2*nu
+xupper=mu + 3*sqrt(var)
+
+x1=3; x2=5
+
+curve(dchisq(x, nu), xlim=c(0, xupper))
+xvals = seq(x1, x2, length = 1000)
+yvals = dchisq(xvals, nu)
+polygon(c(x1, xvals, x2), c(0, yvals, 0), col="pink")
+title(main = list("Y~Chisq(DoF = 3), P(3 < Y < 5)", col="violetred3"))
+
+#probability
+prob1 = round(pchisq(x2, nu) - pchisq(x1, nu), 4)
+loc = locator(1)
+loc
+text(loc, paste("Area = ", prob1, sep= ""))
+
+
+
+#Y∼chisq(df=20),P(10<Y≤21) 
+nu = 20
+mu = nu
+var = 2*nu
+xupper=mu + 3*sqrt(var)
+
+x1=10; x2=21
+
+curve(dchisq(x, nu), xlim=c(0, xupper))
+xvals = seq(x1, x2, length = 1000)
+yvals = dchisq(xvals, nu)
+polygon(c(x1, xvals, x2), c(0, yvals, 0), col="palegreen1")
+title(main = list("Y~Chisq(DoF = 3), P(3 < Y < 5)", col="palegreen3"))
+
+#probability
+prob1 = round(pchisq(x2, nu) - pchisq(x1, nu), 4)
+loc = locator(1)
+loc
+text(loc, paste("Area = ", prob1, sep= ""))
