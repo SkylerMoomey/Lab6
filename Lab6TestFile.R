@@ -95,3 +95,20 @@ prob3 = round((pnorm(-2, -2, 0.5) - pnorm(-3, -2, 0.5)), 4)
 loc3 <- locator(1)
 loc3
 text(loc3, paste("Area = ", prob3, sep=""))
+
+
+#********** Gamma *****************
+
+#Task 3
+layout(1)
+
+#Y∼Gamma(shape=1,scale=1)
+curve(dgamma(x, 1, 1), main="Y~Gamma(a=1, 3, 5; b=1)", xlim=c(0, 10))
+title(col="blue")
+
+#Y∼Gamma(shape=3,scale=1)
+curve(dgamma(x, 3, 1), xlim=c(0, 10), add=TRUE)
+
+
+#Y∼Gamma(shape=5,scale=1)
+curve(dgamma(x, 5, 1),  xlim=c(0, 10), add=TRUE)
