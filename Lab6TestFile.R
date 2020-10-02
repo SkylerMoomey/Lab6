@@ -273,3 +273,150 @@ prob1 = round(pchisq(x2, nu) - pchisq(x1, nu), 4)
 loc = locator(1)
 loc
 text(loc, paste("Area = ", prob1, sep= ""))
+
+
+#************ Weibull ************
+
+
+layout(layout_mat)
+
+#weibull density distributions, two parameters: alpha=shape, beta=scale
+#in r, two parameters are a= alpha, b = beta^(1/alpha)
+
+#Y~Weib(shape=2, scale=1)
+alpha = 2.0
+beta = 1.0
+
+b = beta^(1/alpha)
+
+mu = (b)*gamma((alpha+1)/alpha)
+var = (b^2)*(gamma((alpha+2)/alpha)-(gamma((alpha+1)/alpha))^2)
+
+xupper = mu + 3*sqrt(var)
+curve(dweibull(x, alpha, scale=beta), xlim=c(0, xupper))
+title(main = list("Y~Weibull(Shape = 2.0, Scale = 1.0)", col="red2"))
+
+
+#Y~Weib(shape=4, scale=1)
+alpha = 4.0
+beta = 1.0
+
+b = beta^(1/alpha)
+
+mu = (b)*gamma((alpha+1)/alpha)
+var = (b^2)*(gamma((alpha+2)/alpha)-(gamma((alpha+1)/alpha))^2)
+
+xupper = mu + 3*sqrt(var)
+curve(dweibull(x, alpha, scale=beta), xlim=c(0, xupper))
+title(main = list("Y~Weibull(Shape = 4.0, Scale = 1.0)", col="magenta3"))
+
+#Y~Weib(shape=2, scale=2)
+alpha = 2.0
+beta = 2.0
+
+b = beta^(1/alpha)
+
+mu = (b)*gamma((alpha+1)/alpha)
+var = (b^2)*(gamma((alpha+2)/alpha)-(gamma((alpha+1)/alpha))^2)
+
+xupper = mu + 3*sqrt(var)
+curve(dweibull(x, alpha, scale=beta), xlim=c(0, xupper))
+title(main = list("Y~Weibull(Shape = 4.0, Scale = 1.0)", col="indianred2"))
+
+#Y~Weib(shape=1, scale=5)
+alpha = 1.0
+beta = 5.0
+
+b = beta^(1/alpha)
+
+mu = (b)*gamma((alpha+1)/alpha)
+var = (b^2)*(gamma((alpha+2)/alpha)-(gamma((alpha+1)/alpha))^2)
+
+xupper = mu + 3*sqrt(var)
+curve(dweibull(x, alpha, scale=beta), xlim=c(0, xupper))
+title(main = list("Y~Weibull(Shape = 1.0, Scale = 5.0)~Exp(Scale = 5.0)", col="olivedrab3"))
+
+
+#Weibull distribution with probability shading
+layout(1)
+
+#Y~Weib(shape=2, scale=5), P(2 < Y < 5)
+alpha = 2.0
+beta = 5.0
+
+b = beta^(1/alpha)
+
+mu = (b)*gamma((alpha+1)/alpha)
+var = (b^2)*(gamma((alpha+2)/alpha)-(gamma((alpha+1)/alpha))^2)
+
+x1 = 2
+x2 = 5
+
+xupper = mu + 3*sqrt(var)
+curve(dweibull(x, alpha, scale=beta), xlim=c(0, xupper))
+
+xvals = seq(x1, x2, length = 1000)
+yvals = dweibull(xvals, alpha, beta)
+polygon(c(x1, xvals, x2), c(0, yvals, 0), col="sienna1")
+
+title(main = list("Y~Weibull(Shape = 2.0, Scale = 5.0), P(2<Y<5)", col="sienna2"))
+
+#probability
+prob1 = round(pweibull(x2, alpha, beta) - pweibull(x1, alpha, beta), 4)
+loc = locator(1)
+loc
+text(loc, paste("Area = ", prob1, sep= ""))
+
+#Y~Weib(shape=4, scale=3), P(3 < Y < 4)
+alpha = 4.0
+beta = 3.0
+
+b = beta^(1/alpha)
+
+mu = (b)*gamma((alpha+1)/alpha)
+var = (b^2)*(gamma((alpha+2)/alpha)-(gamma((alpha+1)/alpha))^2)
+
+x1 = 3
+x2 = 4
+
+xupper = mu + 3*sqrt(var)
+curve(dweibull(x, alpha, scale=beta), xlim=c(0, xupper + 5))
+
+xvals = seq(x1, x2, length = 1000)
+yvals = dweibull(xvals, alpha, beta)
+polygon(c(x1, xvals, x2), c(0, yvals, 0), col="pink")
+
+title(main = list("Y~Weibull(Shape = 4.0, Scale = 3.0), P(3<Y<4)", col="violetred3"))
+
+#probability
+prob1 = round(pweibull(x2, alpha, beta) - pweibull(x1, alpha, beta), 4)
+loc = locator(1)
+loc
+text(loc, paste("Area = ", prob1, sep= ""))
+
+#Y~Weib(shape=5, scale=1), P(.5 < Y < 2)
+alpha = 5.0
+beta = 1.0
+
+b = beta^(1/alpha)
+
+mu = (b)*gamma((alpha+1)/alpha)
+var = (b^2)*(gamma((alpha+2)/alpha)-(gamma((alpha+1)/alpha))^2)
+
+x1 = 0.5
+x2 = 2.0
+
+xupper = mu + 3*sqrt(var)
+curve(dweibull(x, alpha, scale=beta), xlim=c(0, xupper))
+
+xvals = seq(x1, x2, length = 1000)
+yvals = dweibull(xvals, alpha, beta)
+polygon(c(x1, xvals, x2), c(0, yvals, 0), col="palegreen1")
+
+title(main = list("Y~Weibull(Shape = 5.0, Scale = 1.0), P(0.5<Y<2)", col="palegreen3"))
+
+#probability
+prob = round(pweibull(x2, alpha, beta) - pweibull(x1, alpha, beta), 4)
+loc = locator(1)
+loc
+text(loc, paste("Area = ", prob, sep= ""))
