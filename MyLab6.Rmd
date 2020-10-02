@@ -302,3 +302,216 @@ prob1 = round(pchisq(x2, nu) - pchisq(x1, nu), 4)
 text(x=4.66717, y=0.03633342, paste("Area = ", prob1, sep= ""))
 ```
 
+# Task 5
+
+## Weibull Density Distributions
+
+```{r}
+layout(layout_mat)
+
+#weibull density distributions, two parameters: alpha=shape, beta=scale
+#in r, two parameters are a= alpha, b = beta^(1/alpha)
+
+#Y~Weib(shape=2, scale=1)
+alpha = 2.0
+beta = 1.0
+
+b = beta^(1/alpha)
+
+mu = (b)*gamma((alpha+1)/alpha)
+var = (b^2)*(gamma((alpha+2)/alpha)-(gamma((alpha+1)/alpha))^2)
+
+xupper = mu + 3*sqrt(var)
+curve(dweibull(x, alpha, scale=beta), xlim=c(0, xupper))
+title(main = list("Y~Weibull(Shape = 2.0, Scale = 1.0)", col="red2"))
+
+
+#Y~Weib(shape=4, scale=1)
+alpha = 4.0
+beta = 1.0
+
+b = beta^(1/alpha)
+
+mu = (b)*gamma((alpha+1)/alpha)
+var = (b^2)*(gamma((alpha+2)/alpha)-(gamma((alpha+1)/alpha))^2)
+
+xupper = mu + 3*sqrt(var)
+curve(dweibull(x, alpha, scale=beta), xlim=c(0, xupper))
+title(main = list("Y~Weibull(Shape = 4.0, Scale = 1.0)", col="magenta3"))
+
+#Y~Weib(shape=2, scale=2)
+alpha = 2.0
+beta = 2.0
+
+b = beta^(1/alpha)
+
+mu = (b)*gamma((alpha+1)/alpha)
+var = (b^2)*(gamma((alpha+2)/alpha)-(gamma((alpha+1)/alpha))^2)
+
+xupper = mu + 3*sqrt(var)
+curve(dweibull(x, alpha, scale=beta), xlim=c(0, xupper))
+title(main = list("Y~Weibull(Shape = 4.0, Scale = 1.0)", col="indianred2"))
+
+#Y~Weib(shape=1, scale=5)
+alpha = 1.0
+beta = 5.0
+
+b = beta^(1/alpha)
+
+mu = (b)*gamma((alpha+1)/alpha)
+var = (b^2)*(gamma((alpha+2)/alpha)-(gamma((alpha+1)/alpha))^2)
+
+xupper = mu + 3*sqrt(var)
+curve(dweibull(x, alpha, scale=beta), xlim=c(0, xupper))
+title(main = list("Y~Weibull(Shape = 1.0, Scale = 5.0)", col="olivedrab3"))
+```
+
+## Weibull Distributions with Probability Shading
+
+```{r}
+#Weibull distribution with probability shading
+layout(1)
+
+#Y~Weib(shape=2, scale=5), P(2 < Y < 5)
+alpha = 2.0
+beta = 5.0
+
+b = beta^(1/alpha)
+
+mu = (b)*gamma((alpha+1)/alpha)
+var = (b^2)*(gamma((alpha+2)/alpha)-(gamma((alpha+1)/alpha))^2)
+
+x1 = 2
+x2 = 5
+
+xupper = mu + 3*sqrt(var)
+curve(dweibull(x, alpha, scale=beta), xlim=c(0, xupper + 5))
+
+xvals = seq(x1, x2, length = 1000)
+yvals = dweibull(xvals, alpha, beta)
+polygon(c(x1, xvals, x2), c(0, yvals, 0), col="sienna1")
+
+title(main = list("Y~Weibull(Shape = 2.0, Scale = 5.0), P(2<Y<5)", col="sienna2"))
+
+#probability
+prob = round(pweibull(x2, alpha, beta) - pweibull(x1, alpha, beta), 4)
+text(x=3.3459438, y=0.1051954, paste("Area = ", prob, sep= ""))
+
+#Y~Weib(shape=4, scale=3), P(3 < Y < 4)
+alpha = 4.0
+beta = 3.0
+
+b = beta^(1/alpha)
+
+mu = (b)*gamma((alpha+1)/alpha)
+var = (b^2)*(gamma((alpha+2)/alpha)-(gamma((alpha+1)/alpha))^2)
+
+x1 = 3
+x2 = 4
+
+xupper = mu + 3*sqrt(var)
+curve(dweibull(x, alpha, scale=beta), xlim=c(0, xupper + 5))
+
+xvals = seq(x1, x2, length = 1000)
+yvals = dweibull(xvals, alpha, beta)
+polygon(c(x1, xvals, x2), c(0, yvals, 0), col="pink")
+
+title(main = list("Y~Weibull(Shape = 4.0, Scale = 3.0), P(2<Y<5)", col="violetred3"))
+
+#probability
+prob = round(pweibull(x2, alpha, beta) - pweibull(x1, alpha, beta), 4)
+text(x=4.856721, y=0.2642768, paste("Area = ", prob, sep= ""))
+
+#Y~Weib(shape=5, scale=1), P(.5 < Y < 2)
+alpha = 5.0
+beta = 1.0
+
+b = beta^(1/alpha)
+
+mu = (b)*gamma((alpha+1)/alpha)
+var = (b^2)*(gamma((alpha+2)/alpha)-(gamma((alpha+1)/alpha))^2)
+
+x1 = 0.5
+x2 = 2.0
+
+xupper = mu + 3*sqrt(var)
+curve(dweibull(x, alpha, scale=beta), xlim=c(0, xupper))
+
+xvals = seq(x1, x2, length = 1000)
+yvals = dweibull(xvals, alpha, beta)
+polygon(c(x1, xvals, x2), c(0, yvals, 0), col="palegreen1")
+
+title(main = list("Y~Weibull(Shape = 5.0, Scale = 1.0), P(0.5<Y<2)", col="palegreen3"))
+
+#probability
+prob = round(pweibull(x2, alpha, beta) - pweibull(x1, alpha, beta), 4)
+
+text(x=0.1671797, y=1.13645, paste("Area = ", prob, sep= ""))
+```
+
+# Task 6
+
+## Beta-Type Distributions
+
+```{r}
+#function to produce beta type probability distribution with shading
+#@param x1 = lower-bound
+#       x2 = upper-bound
+makebeta = function(alpha, beta, x1=0, x2=0, color="red")
+{
+  curve(dbeta(x, alpha, beta), xlim=c(0, 1))
+  
+  xvals = seq(x1, x2, length = 1000)
+  yvals = dbeta(xvals, alpha, beta)
+  polygon(c(x1, xvals, x2), c(0, yvals, 0), col=color)
+  
+  #probability
+  prob = round(pbeta(x2, alpha, beta) - pbeta(x1, alpha, beta), 4)
+  
+  if(prob != 0) {prob}
+}
+
+#************** Beta Type Distributions *******************
+
+layout(layout_mat)
+
+#Y~Beta(alpha=2, beta= 2)
+makebeta(2, 2)
+title(main = list("Y~Beta(alpha=2, beta= 2)", col = "red2"))
+
+#Y~Beta(alpha=3, beta = 1)
+makebeta(3, 1)
+title(main = list("Y~Beta(alpha=3, beta= 1)", col = "magenta3"))
+
+#Y~Beta(alpha = 1, beta = 5)
+makebeta(1, 5)
+title(main = list("Y~Beta(alpha=1, beta= 5)", col = "indianred2"))
+
+#Y~Beta(alpha = 4, beta = 2)
+makebeta(4, 2)
+title(main = list("Y~Beta(alpha=4, beta= 2)", col = "olivedrab3"))
+```
+
+## Beta-Type Distributions with Probability Shading
+
+```{r}
+#Beta Types with Probability
+
+layout(1)
+
+#Y~Beta(alpha=2, beta= 2), P(.5 < Y < 1)
+prob = makebeta(2, 2, 0.5, 1, color = "sienna1")
+title(main = list("Y~Beta(alpha=2, beta= 2), P(.5 < Y < 1)", col = "sienna2"))
+text(x=0.3107204, y=0.6381773, paste("Area = ", prob, sep=""))
+
+#Y~Beta(alpha=3, beta = 1), P(.1 < Y < .4)
+prob = makebeta(3, 1, 0.1, 0.4, color = "pink")
+title(main = list("Y~Beta(alpha=3, beta= 1), P(.1 < Y < .4)", col = "violetred3"))
+text(x=0.2016388, y=1.125016, paste("Area = ", prob, sep=""))
+
+#Y~Beta(alpha = 1, beta = 5), P(.2 < Y < .9)
+prob = makebeta(1, 5, 0.2, 0.9, color = "palegreen1")
+title(main = list("Y~Beta(alpha=1, beta= 5), P(.2 < Y < .9)", col = "palegreen3"))
+text(x=0.4474565, y=2.603695, paste("Area = ", prob, sep=""))
+```
+

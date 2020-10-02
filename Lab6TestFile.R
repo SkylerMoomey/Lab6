@@ -420,3 +420,68 @@ prob = round(pweibull(x2, alpha, beta) - pweibull(x1, alpha, beta), 4)
 loc = locator(1)
 loc
 text(loc, paste("Area = ", prob, sep= ""))
+
+#function to produce beta type probability distribution with shading
+#@param x1 = lower-bound
+#       x2 = upper-bound
+makebeta = function(alpha, beta, x1=0, x2=0, color="red")
+{
+  curve(dbeta(x, alpha, beta), xlim=c(0, 1))
+  
+  xvals = seq(x1, x2, length = 1000)
+  yvals = dbeta(xvals, alpha, beta)
+  polygon(c(x1, xvals, x2), c(0, yvals, 0), col=color)
+  
+  #probability
+  prob = round(pbeta(x2, alpha, beta) - pbeta(x1, alpha, beta), 4)
+  
+  if(prob != 0) {prob}
+}
+
+#************** Beta Type Distributions *******************
+
+layout(layout_mat)
+
+#Y~Beta(alpha=2, beta= 2)
+makebeta(2, 2)
+title(main = list("Y~Beta(alpha=2, beta= 2)", col = "red2"))
+
+#Y~Beta(alpha=3, beta = 1)
+makebeta(3, 1)
+title(main = list("Y~Beta(alpha=3, beta= 1)", col = "magenta3"))
+
+#Y~Beta(alpha = 1, beta = 5)
+makebeta(1, 5)
+title(main = list("Y~Beta(alpha=1, beta= 5)", col = "indianred2"))
+
+#Y~Beta(alpha = 4, beta = 2)
+makebeta(4, 2)
+title(main = list("Y~Beta(alpha=4, beta= 2)", col = "olivedrab3"))
+
+
+#Beta Types with Probability
+
+layout(1)
+
+#Y~Beta(alpha=2, beta= 2), P(.5 < Y < 1)
+prob = makebeta(2, 2, 0.5, 1, color = "sienna1")
+title(main = list("Y~Beta(alpha=2, beta= 2)", col = "sienna2"))
+loc = locator(1)
+loc
+text(loc, paste("Area = ", prob, sep=""))
+
+#Y~Beta(alpha=3, beta = 1), P(.1 < Y < .4)
+prob = makebeta(3, 1, 0.1, 0.4, color = "pink")
+title(main = list("Y~Beta(alpha=3, beta= 1)", col = "violetred3"))
+loc = locator(1)
+loc
+text(loc, paste("Area = ", prob, sep=""))
+
+#Y~Beta(alpha = 1, beta = 5), P(.2 < Y < .9)
+prob = makebeta(1, 5, 0.2, 0.9, color = "palegreen1")
+title(main = list("Y~Beta(alpha=1, beta= 5)", col = "palegreen3"))
+loc = locator(1)
+loc
+text(loc, paste("Area = ", prob, sep=""))
+
+
