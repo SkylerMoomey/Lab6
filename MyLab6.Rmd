@@ -53,7 +53,7 @@ title(main="Mean=5, Standard Deviation=0.5")
 ```{r}
 
 #new graphical layout
-layout(layout_mat)
+layout(1)
 
 #normal curve
 curve(dnorm(x, 0, 1), xlim=c(-3, 3.5))
