@@ -485,3 +485,24 @@ loc
 text(loc, paste("Area = ", prob, sep=""))
 
 
+#**************** Dr. Stewart's Function *********************
+
+#graphs normal curve with probability shading
+#param mu = mean
+#     sigma = sd
+#     a = upper limit
+myncurve = function(mu, sigma, a, color = "red"){
+  curve(dnorm(x,mean=mu,sd=sigma), xlim = c(mu-3*sigma, mu + 3*sigma))
+  
+  xvals = seq(mu-3*sigma, a, length = 1000)
+  yvals = dnorm(xvals, mu, sigma)
+  polygon(c(mu-3*sigma, xvals, a), c(0, yvals, 0), col=color)
+  
+  prob = pnorm(a, mu, sigma)
+  
+  list(prob)
+}
+
+myncurve(2, 4, 3, color = "pink")
+
+?dexp

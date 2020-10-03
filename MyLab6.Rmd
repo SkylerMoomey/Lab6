@@ -124,7 +124,7 @@ text(0.9567504, 0.4600625, paste("Area = ", prob3, sep=""))
 
 # Task 3
 
-## Gamma Distribution, Scale Variant
+## Gamma Distribution, Shape Variant
 ```{r}
 #Y∼Gamma(shape=1,scale=1)
 curve(dgamma(x, 1, 1), main="Y~Gamma(a=1, 3, 5; b=1)", xlim=c(0, 10))
@@ -513,5 +513,44 @@ text(x=0.2016388, y=1.125016, paste("Area = ", prob, sep=""))
 prob = makebeta(1, 5, 0.2, 0.9, color = "palegreen1")
 title(main = list("Y~Beta(alpha=1, beta= 5), P(.2 < Y < .9)", col = "palegreen3"))
 text(x=0.4474565, y=2.603695, paste("Area = ", prob, sep=""))
+```
+
+# Task 7
+
+## Calling Normal Curve Plot from Personal R Package
+
+```{r}
+library(MATH4753moom0002)
+layout(1)
+MATH4753moom0002::myncurve(2, 3, 5, color = "palegreen2")
+title(main = list("Function is MATH4753moom0002::myncurve(mu, sigma, a, color)", col = "palegreen4"))
+```
+
+# Task 8
+
+## Using Gamma Density to Graph Exponential Distribution
+
+```{r}
+# dgamma call
+#Y∼Gamma(shape=1,scale=4)
+curve(dgamma(x, 1, scale = 4), main=list("Graphing Exponential with dgamma(shape, scale)", col="blue"), xlim=c(0, 4))
+
+#Y∼Gamma(shape=1,scale=3)
+curve(dgamma(x, 1, scale = 3), xlim=c(0, 4), add=TRUE)
+
+
+#Y∼Gamma(shape=1,scale=2)
+curve(dgamma(x, 1, scale = 2),  xlim=c(0, 4), add=TRUE)
+
+# dexp call
+#Y∼Exp(rate=1/4)
+curve(dexp(x, 1/4), main=list("Graphing Exponential with dexp(rate = 1/beta)", col="green"), xlim=c(0, 4))
+
+#Y∼Exp(rate=1/3)
+curve(dexp(x, 1/3), xlim=c(0, 4), add=TRUE)
+
+
+#Y∼Exp(rate=1/2)
+curve(dexp(x, 1/2),  xlim=c(0, 4), add=TRUE)
 ```
 
